@@ -23,7 +23,7 @@ public class GameManagers : MonoBehaviour
     public GameObject[] gestureDetector;
 
     /// <summary> Dialogue index that needs to be played next </summary>
-    private int currentDialogue = 0;
+    private int currentDialogue = 5;
 
     /// <summary> Variable to know if its number or alphabet </summary>
     private string gameMode;
@@ -69,7 +69,8 @@ public class GameManagers : MonoBehaviour
                 break;
 
             case 7: // ConfirmContinue for Demo
-                gestureDetector[2].gameObject.SetActive(true);
+                //gestureDetector[2].gameObject.SetActive(true);
+                Debug.Log("case 7");
                 StartCoroutine(ChooseMode(i));
                 break;
 
@@ -535,45 +536,44 @@ public class GameManagers : MonoBehaviour
     
     IEnumerator ChooseMode(int dialogue)
     {
-        
-        yield return new WaitUntil(() => gestureInputInteraction.userInput == "Thumbs Up" || gestureInputInteraction.userInput == "Grip");
 
+        //yield return new WaitUntil(() => gestureInputInteraction.userInput == "Thumbs Up" || gestureInputInteraction.userInput == "Grip");
+        yield return gestureInputInteraction.userInput == "Grip";
         soundManager.PlayDing();
         interactionImg.GetComponent<SpriteRenderer>().enabled = false;
 
         if (gestureInputInteraction.userInput == "Thumbs Up")
         {
+            Debug.Log("ChooseMode Alphabet");
             currentDialogue = 8;
             gameMode = "Alphabet";
             speechText.text = dialogueText[currentDialogue];
             soundManager.PlayDialogue(currentDialogue);
         }
-        else if (gestureInputInteraction.userInput == "Grip")
+        else
         {
+            Debug.Log("ChooseMode Number");
             currentDialogue = 8;
             gameMode = "Number";
             speechText.text = dialogueText[currentDialogue];
             soundManager.PlayDialogue(currentDialogue);
         }
-        else
-        {
-            currentDialogue = 0;
-            speechText.text = dialogueText[currentDialogue];
-            soundManager.PlayDialogue(currentDialogue);
         
-        }
     }
 
     void DialogueMode(int dialogue)
     {
+        Debug.Log("DialogueMode");
         if (gameMode == "Alphabet")
         {
+            Debug.Log("DialogueMode alphabet");
             currentDialogue = 12;
             speechText.text = dialogueText[currentDialogue];
             soundManager.PlayDialogue(currentDialogue);
         }
         else if (gameMode == "Number")
         {
+            Debug.Log("DialogueMode number");
             currentDialogue = 60;
             speechText.text = dialogueText[currentDialogue];
             soundManager.PlayDialogue(currentDialogue);
