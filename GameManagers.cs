@@ -535,14 +535,14 @@ public class GameManagers : MonoBehaviour
     
     IEnumerator ChooseMode(int dialogue)
     {
-        
-        yield return new WaitUntil(() => gestureInputInteraction.userInput == "Thumbs Up" || gestureInputInteraction.userInput == "Grip");
 
+        yield return new WaitUntil(() => gestureInputInteraction.userInput == "Thumbs Up" || gestureInputInteraction.userInput == "Grip");
         soundManager.PlayDing();
         interactionImg.GetComponent<SpriteRenderer>().enabled = false;
 
         if (gestureInputInteraction.userInput == "Thumbs Up")
         {
+            Debug.Log("ChooseMode Alphabet");
             currentDialogue = 8;
             gameMode = "Alphabet";
             speechText.text = dialogueText[currentDialogue];
@@ -550,30 +550,28 @@ public class GameManagers : MonoBehaviour
         }
         else if (gestureInputInteraction.userInput == "Grip")
         {
+            Debug.Log("ChooseMode Number");
             currentDialogue = 8;
             gameMode = "Number";
             speechText.text = dialogueText[currentDialogue];
             soundManager.PlayDialogue(currentDialogue);
         }
-        else
-        {
-            currentDialogue = 0;
-            speechText.text = dialogueText[currentDialogue];
-            soundManager.PlayDialogue(currentDialogue);
         
-        }
     }
 
     void DialogueMode(int dialogue)
     {
+        Debug.Log("DialogueMode");
         if (gameMode == "Alphabet")
         {
+            Debug.Log("DialogueMode alphabet");
             currentDialogue = 12;
             speechText.text = dialogueText[currentDialogue];
             soundManager.PlayDialogue(currentDialogue);
         }
         else if (gameMode == "Number")
         {
+            Debug.Log("DialogueMode number");
             currentDialogue = 60;
             speechText.text = dialogueText[currentDialogue];
             soundManager.PlayDialogue(currentDialogue);
